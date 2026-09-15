@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>Кофеинка — кофейня на Зерновой</title>
+<meta name="description" content="Кофеинка — небольшая кофейня своей обжарки. Меню, история и адрес.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFE9DD;
+    --paper-dim:#E4DCC7;
+    --ink:#211A13;
+    --ink-soft:#6E5C46;
+    --accent:#E0A63A;
+    --accent-deep:#A66C17;
+    --line:#CBBE9F;
+    --marker:#FF5A36;
+    --radius: 3px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; color-scheme:only light;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    forced-color-adjust:none;
+  }
+  h1,h2,h3,.wordmark{
+    font-family:'Unbounded', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  a{color:inherit;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  section{padding:96px 0;}
+  @media (max-width:720px){
+    section{padding:64px 0;}
+    body{font-size:16px;}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--accent-deep);
+    outline-offset:3px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:20;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px;
+    max-width:1080px; margin:0 auto;
+  }
+  .nav .wordmark{font-size:20px;}
+  .nav-right{display:flex; align-items:center; gap:24px;}
+  .nav ul{
+    list-style:none; display:flex; gap:28px; margin:0; padding:0;
+    font-size:15px;
+  }
+  .nav a{text-decoration:none; border-bottom:1px solid transparent; cursor:pointer;}
+  .nav a:hover{border-color:var(--ink);}
+  .lang-switch{
+    display:flex; gap:4px;
+    border:1px solid var(--line);
+    padding:3px;
+    border-radius:20px;
+    background:var(--paper-dim);
+  }
+  .lang-btn{
+    border:none; background:transparent; cursor:pointer;
+    font-size:16px; line-height:1;
+    padding:5px 8px;
+    border-radius:16px;
+    opacity:0.45;
+    filter:grayscale(0.6);
+    transition:opacity 0.15s ease, filter 0.15s ease, background 0.15s ease;
+  }
+  .lang-btn:hover{opacity:0.8;}
+  .lang-btn.is-active{
+    opacity:1;
+    filter:none;
+    background:var(--paper);
+    box-shadow:0 0 0 1px var(--line) inset;
+  }
+  .nav-toggle{display:none;}
+  @media (max-width:680px){
+    .nav ul{display:none;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:88px 0 64px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  @media (max-width:800px){
+    .hero-grid{grid-template-columns:1fr;}
+  }
+  .brand-line{
+    font-size:clamp(52px, 9vw, 104px);
+    line-height:0.92;
+    display:flex; align-items:center; gap:18px;
+    flex-wrap:wrap;
+  }
+  .ring{
+    width:0.62em; height:0.62em;
+    border-radius:50%;
+    border:0.09em solid var(--ink);
+    position:relative;
+    flex:none;
+  }
+  .ring::after{
+    content:"";
+    position:absolute; inset:0.16em;
+    border-radius:50%;
+    border:0.06em solid var(--accent-deep);
+  }
+  .hero p.lede{
+    margin-top:22px;
+    max-width:46ch;
+    font-size:19px;
+    color:var(--ink-soft);
+  }
+  .slogan{
+    font-family:'Unbounded', sans-serif;
+    font-weight:600;
+    font-size:clamp(26px, 6.2vw, 42px);
+    line-height:1.3;
+    margin-top:22px;
+    max-width:28ch;
+  }
+  @media (max-width:340px){
+    .slogan{ font-size:24px; }
+  }
+  .slogan .word{
+    position:relative;
+    z-index:0;
+    display:inline;
+    color:var(--ink);
+    animation: wordInk 0.55s cubic-bezier(.45,0,.2,1) forwards;
+  }
+  .slogan .word::before{
+    content:"";
+    position:absolute;
+    left:0; right:0; top:0; bottom:0;
+    background:var(--ink);
+    z-index:-1;
+    transform:scaleX(0);
+    transform-origin:left center;
+    animation: wordSweep 0.55s cubic-bezier(.45,0,.2,1) forwards;
+  }
+  .slogan .word-0, .slogan .word-0::before{ animation-delay: 0.6s; }
+  .slogan .word-1, .slogan .word-1::before{ animation-delay: 0.92s; }
+  .slogan .word-2, .slogan .word-2::before{ animation-delay: 1.24s; }
+  .slogan .word-3, .slogan .word-3::before{ animation-delay: 1.56s; }
+  @keyframes wordSweep{
+    to{ transform:scaleX(1); }
+  }
+  @keyframes wordInk{
+    to{ color:var(--paper); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .slogan .word{ animation:none; color:var(--paper); }
+    .slogan .word::before{ animation:none; transform:scaleX(1); }
+  }
+  .slogan.replay .word, .slogan.replay .word::before{
+    animation:none !important;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1);
+    transition-delay: calc(var(--d, 0) * 0.09s);
+  }
+  .reveal.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+  .hero-actions{
+    margin-top:34px;
+    display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-block;
+    padding:13px 24px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    font-weight:600;
+    font-size:15px;
+    border:1px solid var(--ink);
+    cursor:pointer;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-solid:hover{background:var(--accent-deep); border-color:var(--accent-deep); color:var(--paper);}
+  .btn-outline{background:transparent; color:var(--ink);}
+  .btn-outline:hover{background:var(--ink); color:var(--paper);}
+
+  .status-card{
+    border:1px solid var(--line);
+    padding:26px;
+    background:var(--paper-dim);
+  }
+  .status-card .dot{
+    width:9px; height:9px; border-radius:50%;
+    background:var(--accent-deep); display:inline-block; margin-right:8px;
+    transform:translateY(-1px);
+  }
+  .status-card h3{font-size:15px; font-weight:600; margin-bottom:14px;}
+  .status-card table{width:100%; border-collapse:collapse; font-size:15px;}
+  .status-card td{padding:5px 0; border-top:1px solid var(--line);}
+  .status-card tr:first-child td{border-top:none;}
+  .status-card td:last-child{text-align:right; color:var(--ink-soft);}
+
+  .steam{
+    position:absolute; right:8px; top:-6px; width:110px; opacity:0.22; z-index:-1;
+  }
+  @media (max-width:680px){
+    .steam{display:none;}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .steam path{
+      stroke-dasharray:340;
+      stroke-dashoffset:340;
+      animation:draw 3.2s ease forwards 0.3s;
+    }
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  /* ---------- section headings ---------- */
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:44px; flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(30px,4vw,40px);}
+  .section-head p{max-width:38ch; color:var(--ink-soft); font-size:15.5px;}
+  .num{
+    font-family:'Unbounded', sans-serif;
+    color:var(--ink-soft);
+    font-size:14px;
+  }
+
+  /* ---------- about ---------- */
+  .about{background:var(--paper-dim); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .about-grid{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px;
+  }
+  @media (max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{margin:0 0 16px; max-width:56ch;}
+  .about-figures{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .about-figures div{
+    background:var(--paper-dim);
+    padding:22px;
+  }
+  .about-figures strong{
+    display:block; font-family:'Unbounded'; font-size:26px; margin-bottom:4px;
+  }
+  .about-figures span{font-size:13.5px; color:var(--ink-soft);}
+
+  /* ---------- menu ---------- */
+  .menu-row{
+    display:grid; grid-template-columns:220px 1fr;
+    gap:32px;
+    padding:32px 0;
+    border-top:1px solid var(--line);
+  }
+  .menu-row:last-child{border-bottom:1px solid var(--line);}
+  @media (max-width:640px){
+    .menu-row{grid-template-columns:1fr; gap:14px;}
+  }
+  .menu-row h3{font-size:19px; font-weight:600;}
+  .menu-row h3 span:last-child{
+    display:block; font-family:'Manrope'; font-weight:400; font-size:14px; color:var(--ink-soft); margin-top:4px;
+  }
+  .item{
+    display:flex; justify-content:space-between; gap:16px;
+    padding:11px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .item:last-child{border-bottom:none;}
+  .item-name{font-weight:600;}
+  .item-desc{color:var(--ink-soft); font-size:14.5px; margin-top:2px;}
+  .item-price{
+    font-family:'Unbounded'; font-size:15px; white-space:nowrap;
+    padding-left:12px;
+  }
+
+  /* ---------- process ---------- */
+  .process{background:var(--ink); color:var(--paper);}
+  .process .section-head p{color:#C8B99A;}
+  .process .num{color:var(--accent);}
+  .origin-card{
+    border:1px solid #4B3E2C;
+    padding:26px;
+    margin-bottom:48px;
+    display:flex; gap:24px; flex-wrap:wrap; justify-content:space-between; align-items:center;
+  }
+  .origin-card h3{font-size:20px;}
+  .origin-card .origin-meta{color:#C8B99A; font-size:14.5px; margin-top:6px;}
+  .chips{display:flex; gap:8px; flex-wrap:wrap;}
+  .chip{
+    border:1px solid var(--accent);
+    color:var(--accent);
+    font-size:13px;
+    padding:5px 12px;
+    border-radius:20px;
+  }
+  .steps{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:#4B3E2C;
+    border:1px solid #4B3E2C;
+  }
+  @media (max-width:760px){ .steps{grid-template-columns:1fr;} }
+  .step{ background:var(--ink); padding:26px 22px; }
+  .step .num{display:block; margin-bottom:14px;}
+  .step h4{font-family:'Unbounded'; font-size:16px; margin-bottom:8px; font-weight:500;}
+  .step p{color:#C8B99A; font-size:14px; margin:0;}
+
+  /* ---------- reviews ---------- */
+  .reviews{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-dim);}
+  .review-list{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+  @media (max-width:800px){ .review-list{grid-template-columns:1fr;} }
+  .review{background:var(--paper-dim); padding:30px;}
+  .review .mark{font-family:'Unbounded'; font-size:34px; color:var(--accent-deep); line-height:1;}
+  .review p.quote{margin:14px 0 18px; font-size:15.5px;}
+  .review .who{font-size:13.5px; color:var(--ink-soft);}
+
+  /* ---------- footer ---------- */
+  footer{background:#211A13; color:var(--paper);}
+  .footer-grid{
+    display:grid; grid-template-columns:1.1fr 0.8fr 0.8fr 1fr; gap:40px;
+  }
+  @media (max-width:800px){
+    .footer-grid{grid-template-columns:1fr 1fr; row-gap:36px;}
+  }
+  footer h4{font-size:14px; font-weight:600; margin-bottom:16px; color:#C8B99A;}
+  footer .wordmark{color:var(--paper); font-size:22px; margin-bottom:14px;}
+  footer p{margin:0 0 8px; font-size:14.5px; color:#DED6C4;}
+  footer ul{list-style:none; margin:0; padding:0;}
+  footer li{margin-bottom:8px; font-size:14.5px;}
+  footer a{text-decoration:none; color:#DED6C4; border-bottom:1px solid transparent;}
+  footer a:hover{border-color:#DED6C4;}
+  .hours-table{font-size:14.5px;}
+  .hours-table div{display:flex; justify-content:space-between; padding:5px 0; border-bottom:1px solid #4B3E2C; max-width:220px;}
+  .map-svg{border:1px solid #4B3E2C; padding:10px;}
+  .foot-bottom{
+    border-top:1px solid #4B3E2C;
+    margin-top:56px; padding-top:22px;
+    font-size:13px; color:#9C8B70;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="wordmark" data-i18n="brand_name">Кофеинка</div>
+      <ul>
+        <li><a role="link" tabindex="0" data-target="about" data-i18n="nav_about">О нас</a></li>
+        <li><a role="link" tabindex="0" data-target="menu" data-i18n="nav_menu">Меню</a></li>
+        <li><a role="link" tabindex="0" data-target="process" data-i18n="nav_process">Зерно</a></li>
+        <li><a role="link" tabindex="0" data-target="location" data-i18n="nav_location">Адрес</a></li>
+      </ul>
+      <div class="lang-switch" role="group" aria-label="Language / Язык">
+        <button type="button" class="lang-btn is-active" data-lang="ru" aria-pressed="true">🇷🇺</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">🇺🇸</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="brand-line">
+        <span class="ring" aria-hidden="true"></span>
+        <span data-i18n="brand_name">Кофеинка</span>
+      </div>
+      <p class="slogan"><span class="word word-0" data-i18n="slogan_w0">Маленькая </span><span class="word word-1" data-i18n="slogan_w1">кофейня с </span><span class="word word-2" data-i18n="slogan_w2">большим </span><span class="word word-3" data-i18n="slogan_w3">зарядом</span></p>
+      <p class="lede" data-i18n="hero_lede">Небольшая кофейня своей обжарки. Варим то, что пили бы сами: честный эспрессо, аккуратный фильтр и выпечка, которая не долежит до вечера.</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" role="link" tabindex="0" data-target="menu" data-i18n="btn_menu">Смотреть меню</a>
+        <a class="btn btn-outline" role="link" tabindex="0" data-target="location" data-i18n="btn_location">Найти нас</a>
+      </div>
+    </div>
+    <div class="status-card">
+      <h3><span class="dot" aria-hidden="true"></span><span data-i18n="status_title">Сегодня открыто до 21:00</span></h3>
+      <table>
+        <tr><td data-i18n="status_weekday">Пн–Пт</td><td>7:00–21:00</td></tr>
+        <tr><td data-i18n="status_weekend">Сб–Вс</td><td>9:00–22:00</td></tr>
+        <tr><td data-i18n="status_address_label">Адрес</td><td data-i18n="status_address_value">ул. Зерновая, 3</td></tr>
+      </table>
+    </div>
+  </div>
+  <svg class="steam" viewBox="0 0 200 300" fill="none" aria-hidden="true">
+    <path d="M40 300 C 20 250, 70 230, 50 190 C 30 150, 80 130, 60 90 C 45 60, 85 40, 70 5"
+      stroke="#211A13" stroke-width="2" stroke-linecap="round"/>
+  </svg>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-grid">
+    <div>
+      <span class="num" data-i18n="about_eyebrow">О кофейне</span>
+      <h2 style="margin-top:10px;" data-i18n="about_title">Начали с одного кофе-пойнта во дворе</h2>
+    </div>
+    <div>
+      <p data-i18n="about_p1">Кофеинка открылась в 2021 году как стойка на три квадратных метра — один краник, одна кофемашина и очередь соседей по утрам. Сейчас у нас своя обжарочная, зал на пятнадцать посадок и команда, которая помнит имена постоянных гостей.</p>
+      <p data-i18n="about_p2">Мы не гонимся за трендами ради трендов: закупаем зелёное зерно у одних и тех же фермерских хозяйств, обжариваем малыми партиями раз в неделю и меняем сезонную карту, только когда пробуем что-то, что действительно хочется поставить в меню.</p>
+      <div class="about-figures">
+        <div class="reveal" style="--d:0"><strong data-i18n="about_fig1_num">4 года</strong><span data-i18n="about_fig1_label">работаем на одном месте</span></div>
+        <div class="reveal" style="--d:1"><strong data-i18n="about_fig2_num">6</strong><span data-i18n="about_fig2_label">сортов зерна в ротации</span></div>
+        <div class="reveal" style="--d:2"><strong data-i18n="about_fig3_num">120 кг</strong><span data-i18n="about_fig3_label">обжариваем в неделю</span></div>
+        <div class="reveal" style="--d:3"><strong data-i18n="about_fig4_num">15</strong><span data-i18n="about_fig4_label">посадочных мест в зале</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="menu_title">Меню</h2>
+      <p data-i18n="menu_sub">Классика на эспрессо-баре и альтернативные способы заварки для тех, кто никуда не торопится.</p>
+    </div>
+
+    <div class="menu-row reveal" style="--d:0">
+      <h3><span data-i18n="menu_espresso_title">Эспрессо-бар</span><span data-i18n="menu_espresso_sub">на молоке и без</span></h3>
+      <div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_espresso">Эспрессо</div><div class="item-desc" data-i18n="item_espresso_desc">одна или двойная порция</div></div>
+          <div class="item-price">150 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_americano">Американо</div></div>
+          <div class="item-price">170 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_cappuccino">Капучино</div><div class="item-desc" data-i18n="item_cappuccino_desc">180 или 300 мл</div></div>
+          <div class="item-price">210 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_flatwhite">Флэт уайт</div></div>
+          <div class="item-price">230 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_raf">Раф</div><div class="item-desc" data-i18n="item_raf_desc">ванильный, солёная карамель или классический</div></div>
+          <div class="item-price">260 ₽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-row reveal" style="--d:1">
+      <h3><span data-i18n="menu_alt_title">Альтернатива</span><span data-i18n="menu_alt_sub">заваривается 3–4 минуты</span></h3>
+      <div>
+        <div class="item">
+          <div><div class="item-name">V60</div><div class="item-desc" data-i18n="item_v60_desc">чашка на выбранном сегодня зерне</div></div>
+          <div class="item-price">280 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_aeropress">Аэропресс</div></div>
+          <div class="item-price">260 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_chemex">Кемекс на двоих</div><div class="item-desc" data-i18n="item_chemex_desc">450 мл, подаём в графине</div></div>
+          <div class="item-price">480 ₽</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-row reveal" style="--d:2">
+      <h3><span data-i18n="menu_pastry_title">Выпечка</span><span data-i18n="menu_pastry_sub">своя, с утренней партии</span></h3>
+      <div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_croissant">Круассан классический</div></div>
+          <div class="item-price">160 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_cinnabon">Синнабон с корицей</div></div>
+          <div class="item-price">190 ₽</div>
+        </div>
+        <div class="item">
+          <div><div class="item-name" data-i18n="item_cheesecake">Чизкейк баскский</div></div>
+          <div class="item-price">220 ₽</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="process_title">Зерно недели</h2>
+      <p data-i18n="process_sub">Каждую неделю ставим на бар один сорт для альтернативы и рассказываем, что в нём слышно.</p>
+    </div>
+
+    <div class="origin-card reveal" style="--d:0">
+      <div>
+        <h3 data-i18n="origin_title">Эфиопия, Йиргачеффе</h3>
+        <div class="origin-meta" data-i18n="origin_meta">светлая обжарка · высота 1900–2100 м · мытая обработка</div>
+      </div>
+      <div class="chips">
+        <span class="chip" data-i18n="chip1">Жасмин</span>
+        <span class="chip" data-i18n="chip2">Персик</span>
+        <span class="chip" data-i18n="chip3">Коричневый сахар</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal" style="--d:1">
+        <span class="num">01</span>
+        <h4 data-i18n="step1_title">Обжарка</h4>
+        <p data-i18n="step1_desc">Партиями по 3 кг, профиль подбираем под каждый урожай заново.</p>
+      </div>
+      <div class="step reveal" style="--d:2">
+        <span class="num">02</span>
+        <h4 data-i18n="step2_title">Помол</h4>
+        <p data-i18n="step2_desc">Под конкретный способ заварки — прямо перед чашкой, не заранее.</p>
+      </div>
+      <div class="step reveal" style="--d:3">
+        <span class="num">03</span>
+        <h4 data-i18n="step3_title">Заваривание</h4>
+        <p data-i18n="step3_desc">Соотношение 1:16, вода 94°C, время — по таймеру на баре.</p>
+      </div>
+      <div class="step reveal" style="--d:4">
+        <span class="num">04</span>
+        <h4 data-i18n="step4_title">Дегустация</h4>
+        <p data-i18n="step4_desc">Пробуем каждую новую партию всей сменой, прежде чем ставить в меню.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 data-i18n="reviews_title">Что говорят гости</h2>
+    </div>
+    <div class="review-list">
+      <div class="review reveal" style="--d:0">
+        <div class="mark">”</div>
+        <p class="quote" data-i18n="review1">Прихожу за флэт уайтом и остаюсь на час — рабочее место с розетками нашлось само собой.</p>
+        <div class="who" data-i18n="who1">Марина, дизайнер</div>
+      </div>
+      <div class="review reveal" style="--d:1">
+        <div class="mark">”</div>
+        <p class="quote" data-i18n="review2">Единственное место в районе, где альтернатива подана вовремя и не остывшей.</p>
+        <div class="who" data-i18n="who2">Игорь, инженер</div>
+      </div>
+      <div class="review reveal" style="--d:2">
+        <div class="mark">”</div>
+        <p class="quote" data-i18n="review3">Ребята помнят, что я беру раф без сиропа. Мелочь, а приятно каждый раз.</p>
+        <div class="who" data-i18n="who3">Соня, студентка</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="location">
+  <div class="wrap" style="padding:80px 28px 0;">
+    <div class="footer-grid">
+      <div class="reveal" style="--d:0">
+        <div class="wordmark" data-i18n="brand_name">Кофеинка</div>
+        <p><span data-i18n="footer_address">ул. Зерновая, 3</span><br><span data-i18n="footer_metro">Ближайшая станция метро — в 5 минутах пешком.</span></p>
+      </div>
+      <div class="reveal" style="--d:1">
+        <h4 data-i18n="footer_hours_title">Часы работы</h4>
+        <div class="hours-table">
+          <div><span data-i18n="status_weekday">Пн–Пт</span><span>7:00–21:00</span></div>
+          <div><span data-i18n="status_weekend">Сб–Вс</span><span>9:00–22:00</span></div>
+        </div>
+      </div>
+      <div class="reveal" style="--d:2">
+        <h4 data-i18n="footer_contact_title">Связаться</h4>
+        <ul>
+          <li><a href="tel:+79001234567">+7 900 123-45-67</a></li>
+          <li><a href="https://t.me/kofeinka_bar">Telegram</a></li>
+          <li><a href="https://vk.com/kofeinka">VK</a></li>
+        </ul>
+      </div>
+      <div class="reveal" style="--d:3">
+        <h4 data-i18n="footer_direction_title">Как добраться</h4>
+        <svg class="map-svg" width="100%" height="110" viewBox="0 0 220 110" aria-label="Схема расположения кофейни" role="img">
+          <line x1="0" y1="30" x2="220" y2="30" stroke="#4B3E2C" stroke-width="2"/>
+          <line x1="0" y1="80" x2="220" y2="80" stroke="#4B3E2C" stroke-width="2"/>
+          <line x1="70" y1="0" x2="70" y2="110" stroke="#4B3E2C" stroke-width="2"/>
+          <line x1="150" y1="0" x2="150" y2="110" stroke="#4B3E2C" stroke-width="2"/>
+          <circle cx="150" cy="30" r="6" fill="#E0A63A"/>
+          <text x="130" y="52" fill="#DED6C4" font-size="10" font-family="Manrope" data-i18n="brand_name">Кофеинка</text>
+        </svg>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Кофеинка</span>
+      <span data-i18n="footer_tag">Свежая обжарка каждую неделю</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var translations = {
+    ru: {
+      brand_name:"Кофеинка",
+      nav_about:"О нас", nav_menu:"Меню", nav_process:"Зерно", nav_location:"Адрес",
+      slogan_w0:"Маленькая ", slogan_w1:"кофейня с ", slogan_w2:"большим ", slogan_w3:"зарядом",
+      hero_lede:"Небольшая кофейня своей обжарки. Варим то, что пили бы сами: честный эспрессо, аккуратный фильтр и выпечка, которая не долежит до вечера.",
+      btn_menu:"Смотреть меню", btn_location:"Найти нас",
+      status_title:"Сегодня открыто до 21:00", status_weekday:"Пн–Пт", status_weekend:"Сб–Вс",
+      status_address_label:"Адрес", status_address_value:"ул. Зерновая, 3",
+      about_eyebrow:"О кофейне", about_title:"Начали с одного кофе-пойнта во дворе",
+      about_p1:"Кофеинка открылась в 2021 году как стойка на три квадратных метра — один краник, одна кофемашина и очередь соседей по утрам. Сейчас у нас своя обжарочная, зал на пятнадцать посадок и команда, которая помнит имена постоянных гостей.",
+      about_p2:"Мы не гонимся за трендами ради трендов: закупаем зелёное зерно у одних и тех же фермерских хозяйств, обжариваем малыми партиями раз в неделю и меняем сезонную карту, только когда пробуем что-то, что действительно хочется поставить в меню.",
+      about_fig1_num:"4 года", about_fig1_label:"работаем на одном месте",
+      about_fig2_num:"6", about_fig2_label:"сортов зерна в ротации",
+      about_fig3_num:"120 кг", about_fig3_label:"обжариваем в неделю",
+      about_fig4_num:"15", about_fig4_label:"посадочных мест в зале",
+      menu_title:"Меню", menu_sub:"Классика на эспрессо-баре и альтернативные способы заварки для тех, кто никуда не торопится.",
+      menu_espresso_title:"Эспрессо-бар", menu_espresso_sub:"на молоке и без",
+      item_espresso:"Эспрессо", item_espresso_desc:"одна или двойная порция",
+      item_americano:"Американо",
+      item_cappuccino:"Капучино", item_cappuccino_desc:"180 или 300 мл",
+      item_flatwhite:"Флэт уайт",
+      item_raf:"Раф", item_raf_desc:"ванильный, солёная карамель или классический",
+      menu_alt_title:"Альтернатива", menu_alt_sub:"заваривается 3–4 минуты",
+      item_v60_desc:"чашка на выбранном сегодня зерне",
+      item_aeropress:"Аэропресс",
+      item_chemex:"Кемекс на двоих", item_chemex_desc:"450 мл, подаём в графине",
+      menu_pastry_title:"Выпечка", menu_pastry_sub:"своя, с утренней партии",
+      item_croissant:"Круассан классический", item_cinnabon:"Синнабон с корицей", item_cheesecake:"Чизкейк баскский",
+      process_title:"Зерно недели", process_sub:"Каждую неделю ставим на бар один сорт для альтернативы и рассказываем, что в нём слышно.",
+      origin_title:"Эфиопия, Йиргачеффе", origin_meta:"светлая обжарка · высота 1900–2100 м · мытая обработка",
+      chip1:"Жасмин", chip2:"Персик", chip3:"Коричневый сахар",
+      step1_title:"Обжарка", step1_desc:"Партиями по 3 кг, профиль подбираем под каждый урожай заново.",
+      step2_title:"Помол", step2_desc:"Под конкретный способ заварки — прямо перед чашкой, не заранее.",
+      step3_title:"Заваривание", step3_desc:"Соотношение 1:16, вода 94°C, время — по таймеру на баре.",
+      step4_title:"Дегустация", step4_desc:"Пробуем каждую новую партию всей сменой, прежде чем ставить в меню.",
+      reviews_title:"Что говорят гости",
+      review1:"Прихожу за флэт уайтом и остаюсь на час — рабочее место с розетками нашлось само собой.", who1:"Марина, дизайнер",
+      review2:"Единственное место в районе, где альтернатива подана вовремя и не остывшей.", who2:"Игорь, инженер",
+      review3:"Ребята помнят, что я беру раф без сиропа. Мелочь, а приятно каждый раз.", who3:"Соня, студентка",
+      footer_address:"ул. Зерновая, 3", footer_metro:"Ближайшая станция метро — в 5 минутах пешком.",
+      footer_hours_title:"Часы работы", footer_contact_title:"Связаться", footer_direction_title:"Как добраться",
+      footer_tag:"Свежая обжарка каждую неделю"
+    },
+    en: {
+      brand_name:"Kofeinka",
+      nav_about:"About", nav_menu:"Menu", nav_process:"Beans", nav_location:"Location",
+      slogan_w0:"Small ", slogan_w1:"coffee shop, ", slogan_w2:"big ", slogan_w3:"energy",
+      hero_lede:"A small coffee shop that roasts its own beans. We brew what we'd drink ourselves: honest espresso, careful filter coffee, and pastries that never last till evening.",
+      btn_menu:"View menu", btn_location:"Find us",
+      status_title:"Open today until 9 PM", status_weekday:"Mon–Fri", status_weekend:"Sat–Sun",
+      status_address_label:"Address", status_address_value:"3 Zernovaya St.",
+      about_eyebrow:"About us", about_title:"We started with one coffee stand in a courtyard",
+      about_p1:"Kofeinka opened in 2021 as a three-square-meter stand — one tap, one machine, and a line of neighbors every morning. Today we have our own roastery, a fifteen-seat room, and a team that remembers regulars by name.",
+      about_p2:"We don't chase trends for the sake of it: we buy green beans from the same farms, roast in small batches once a week, and only change the seasonal menu when we've found something genuinely worth adding.",
+      about_fig1_num:"4 years", about_fig1_label:"at the same spot",
+      about_fig2_num:"6", about_fig2_label:"beans in rotation",
+      about_fig3_num:"120 kg", about_fig3_label:"roasted every week",
+      about_fig4_num:"15", about_fig4_label:"seats in the room",
+      menu_title:"Menu", menu_sub:"Espresso-bar classics and alternative brews for those in no hurry.",
+      menu_espresso_title:"Espresso bar", menu_espresso_sub:"with or without milk",
+      item_espresso:"Espresso", item_espresso_desc:"single or double shot",
+      item_americano:"Americano",
+      item_cappuccino:"Cappuccino", item_cappuccino_desc:"180 or 300 ml",
+      item_flatwhite:"Flat white",
+      item_raf:"Raf", item_raf_desc:"vanilla, salted caramel, or classic",
+      menu_alt_title:"Alternative brew", menu_alt_sub:"brewed in 3–4 minutes",
+      item_v60_desc:"a cup of today's featured bean",
+      item_aeropress:"AeroPress",
+      item_chemex:"Chemex for two", item_chemex_desc:"450 ml, served in a carafe",
+      menu_pastry_title:"Pastries", menu_pastry_sub:"baked fresh every morning",
+      item_croissant:"Classic croissant", item_cinnabon:"Cinnamon roll", item_cheesecake:"Basque cheesecake",
+      process_title:"Bean of the week", process_sub:"Every week we feature one bean for alternative brewing and share its tasting notes.",
+      origin_title:"Ethiopia, Yirgacheffe", origin_meta:"light roast · 1,900–2,100 m altitude · washed process",
+      chip1:"Jasmine", chip2:"Peach", chip3:"Brown sugar",
+      step1_title:"Roasting", step1_desc:"In 3 kg batches — we tune the roast profile for every new harvest.",
+      step2_title:"Grinding", step2_desc:"Ground for the specific brew method, right before the cup — never in advance.",
+      step3_title:"Brewing", step3_desc:"1:16 ratio, 94°C water, timed on the bar.",
+      step4_title:"Tasting", step4_desc:"The whole shift tastes every new batch before it goes on the menu.",
+      reviews_title:"What guests say",
+      review1:"I come for a flat white and stay for an hour — turns out it's a great spot to work, outlets included.", who1:"Marina, designer",
+      review2:"The only place around here where a pour-over actually arrives on time and still hot.", who2:"Igor, engineer",
+      review3:"The staff remember I take my raf without syrup. Small thing, but it makes my day every time.", who3:"Sonya, student",
+      footer_address:"3 Zernovaya St.", footer_metro:"Nearest metro station — a 5-minute walk.",
+      footer_hours_title:"Opening hours", footer_contact_title:"Get in touch", footer_direction_title:"How to find us",
+      footer_tag:"Fresh roast every week"
+    }
+  };
+
+  var nodes = document.querySelectorAll('[data-i18n]');
+  var buttons = document.querySelectorAll('.lang-btn');
+
+  function setLang(lang){
+    nodes.forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if (translations[lang][key] !== undefined) {
+        el.textContent = translations[lang][key];
+      }
+    });
+    buttons.forEach(function(btn){
+      var active = btn.getAttribute('data-lang') === lang;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    document.documentElement.setAttribute('lang', lang);
+    try { localStorage.setItem('kofeinka-lang', lang); } catch(e){}
+    replaySlogan();
+  }
+
+  function replaySlogan(){
+    var slogan = document.querySelector('.slogan');
+    if (!slogan) return;
+    slogan.classList.add('replay');
+    void slogan.offsetWidth;
+    slogan.classList.remove('replay');
+  }
+
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      setLang(btn.getAttribute('data-lang'));
+    });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem('kofeinka-lang'); } catch(e){}
+  if (saved === 'en') setLang('en');
+})();
+</script>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  els.forEach(function(el){ observer.observe(el); });
+})();
+</script>
+
+<script>
+(function(){
+  var links = document.querySelectorAll('[data-target]');
+  function go(link){
+    var id = link.getAttribute('data-target');
+    var target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  links.forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      go(link);
+    });
+    link.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        go(link);
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
